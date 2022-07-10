@@ -42,6 +42,3 @@ public static Object[][] getData(){
         assertEquals(price, actual, 0);
     }
 }
-
-//Неясны требования насчет пустого имени, имя = null, and negative price.
-//Я как бы добавил такие данные в параметры как допустимые.

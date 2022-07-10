@@ -10,7 +10,6 @@ IngredientType ingredientType;
     @Test
     public void values() {
         for (IngredientType actual : IngredientType.values()) {
-            System.out.println(actual);
             Assert.assertEquals(actual.SAUCE, ingredientType.SAUCE);
             Assert.assertEquals(actual.FILLING, ingredientType.FILLING);
         }
@@ -30,5 +29,3 @@ IngredientType ingredientType;
         Assert.assertEquals(actual, expected);
     }
 }
-
-//Не знаю как протестить перечисление. Вот такие тесты придумал.

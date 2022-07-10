@@ -1,15 +1,23 @@
 package praktikum;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnitRunner;
+
 import static org.junit.Assert.*;
+import static praktikum.IngredientType.FILLING;
+import static praktikum.IngredientType.SAUCE;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class BurgerTest {
 
-    private Bun bun = new Bun("black bun", 100);
-    private Ingredient ingredient = new Ingredient(IngredientType.SAUCE, "hot sauce", 100);
-    private Ingredient ingredient2 = new Ingredient(IngredientType.FILLING, "nice filling", 110);
-    private Ingredient ingredient3 = new Ingredient(IngredientType.SAUCE, "hot sauce 2", 120);
+    Database db = new Database();
+
+    private Bun bun = new Bun("black bun", 100f);
+    private Ingredient ingredient = Mockito.spy(db.availableIngredients().get(0));
+    private Ingredient ingredient2 = db.availableIngredients().get(3);
+    private Ingredient ingredient3 = db.availableIngredients().get(2);
 
     @Test
     public void setBuns() {
@@ -55,8 +63,9 @@ public class BurgerTest {
         burger.setBuns(bun);
         burger.addIngredient(ingredient);
         burger.addIngredient(ingredient3);
+        Mockito.when(ingredient.getPrice()).thenReturn(110f);
         float actual = burger.getPrice();
-        float expected = 420;
+        float expected = 610;
         assertEquals(actual, expected, 0);
     }
 
@@ -69,8 +78,6 @@ public class BurgerTest {
         burger.getReceipt();
         assertTrue(burger.getReceipt().contains("==== black bun ===="));
         assertTrue(burger.getReceipt().contains(ingredient3.getType().toString().toLowerCase()));
-        assertTrue(burger.getReceipt().contains("Price: " + 420));
+        assertTrue(burger.getReceipt().contains("Price: " + 600));
     }
 }
-
-// Не смог в негативные тесты.
